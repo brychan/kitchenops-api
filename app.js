@@ -78,6 +78,14 @@ const authRoutes = require("./server/routes/auth-routes");
 
 app.use("/auth", authRoutes);
 
+function logErrors(err, req, res, next) {
+  console.error("logErrors MW", err)
+  next(err)
+}
+const { errorHandler } = require("./server/utilities/_errorHandler")
+app.use(logErrors)
+app.use(errorHandler)
+
 // App Server Connection
 app.listen(process.env.PORT || 9001, () => {
   console.log(

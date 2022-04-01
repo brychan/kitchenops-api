@@ -1,16 +1,24 @@
 const bcrypt = require("bcrypt");
 
-function validateCreateForm(req) {
+function validateCreateForm(req, res, next) {
   let { name, password, email } = req.body;
-  let error = null;
+  let message = null;
   if (!name || !password || !email) {
-    error = "Name, e-mail or password fields are empty.";
-  } else if (name.length < 6) {
-    error = "Name must be longer than 6 characters";
+    message = "Name, e-mail or password fields are empty.";
+  } else if (name.length < 2) {
+    message = "Name must be longer than 6 characters";
   } else if (password.length < 6) {
-    error = "Password must be longer than 6 characters";
+    message = "Password must be longer than 6 characters";
+  } else if (email.length < 6) {
+    message = "Email must be longer than 6 characters";
   }
-  return error;
+  if (message) 
+    return next({
+      status: 400,
+      message,
+    })
+  else
+    return next();
 }
 
 function comparePass(userPassword, databasePassword) {
@@ -18,27 +26,26 @@ function comparePass(userPassword, databasePassword) {
 }
 
 function loginRequired(req, res, next) {
-  if (!req.user) {
-    return res.status(400).send({ status: "Not logged in." }).end();
-  }
-  if (!req.user.active) {
-    return res
-      .status(400)
-      .send({ status: "Account is not active. Check e-mail." });
-  }
+  if (!req.user)
+    return next({
+      status: 403,
+      message: "Unauthorized access."
+    })
+  if (!req.user.active)
+    return next({
+      status: 403,
+      message: "Account is not active."
+    })
   return next();
 }
 
 function adminRequired(req, res, next) {
   // Assumes loginRequired middleware is ran first.
-  if (!req.user.admin) {
-    return res.status(400).send({ status: "Unauthorized access." });
-  }
-  return next();
-}
-
-function loginRedirect(req, res, next) {
-  if (req.user) return res.send({ status: "You are already logged in." });
+  if (!req.user.admin)
+    return next({
+      status: 403,
+      message: "Unauthorized access."
+    })
   return next();
 }
 
@@ -46,6 +53,5 @@ module.exports = {
   comparePass,
   loginRequired,
   adminRequired,
-  loginRedirect,
   validateCreateForm,
 };

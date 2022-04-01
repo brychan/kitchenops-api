@@ -2,7 +2,6 @@ const {
   ValidationError,
   NotFoundError,
   DBError,
-  ConstraintViolationError,
   UniqueViolationError,
   NotNullViolationError,
   ForeignKeyViolationError,
@@ -10,9 +9,19 @@ const {
   DataError,
 } = require("objection");
 
-// In this example `res` is an express response object.
-function errorHandler(err, res) {
-  if (err instanceof ValidationError) {
+const ErrorLog = require("../models/error-model");
+
+async function saveToDB(err) {
+  const query = await ErrorLog.query().insert({ error: 'err' })
+}
+
+function errorHandler(err, req, res, next) {
+  console.log(err instanceof Error)
+  if (!(err instanceof Error)) {
+    res.status(err.status).send({
+      message: err.message
+    })
+  } else if (err instanceof ValidationError) {
     switch (err.type) {
       case "ModelValidation":
         res.status(400).send({
@@ -34,13 +43,21 @@ function errorHandler(err, res) {
           type: err.type,
           data: {},
         });
-        break;
+        
       case "InvalidGraph":
         res.status(400).send({
           message: err.message,
           type: err.type,
           data: {},
         });
+        break;
+      case "InvalidRequest":
+          res.status(400).send({
+            message: err.message,
+            type: err.type,
+            data: {},
+          });
+          break;
       default:
         res.status(400).send({
           message: err.message,
@@ -99,9 +116,10 @@ function errorHandler(err, res) {
       data: {},
     });
   } else if (err instanceof DBError) {
+    // SHOULD SAVE TO DB
     res.status(500).send({
-      message: err.message,
-      type: "UnknownDatabaseError",
+      message: process.env.NODE_ENV == "production" ? "There was an error, please try again later." : err.message,
+      type: process.env.NODE_ENV == "production" ? "Error" : "UnknownDatabaseError",
       data: {},
     });
   } else {

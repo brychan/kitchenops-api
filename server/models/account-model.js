@@ -1,5 +1,4 @@
 const { Model } = require("objection");
-const bcrypt = require("bcrypt");
 
 class Account extends Model {
   static get tableName() {
@@ -22,16 +21,14 @@ class Account extends Model {
       },
     };
   }
-
+  
   static get modifiers() {
     return {
       basicInfo(builder) {
         builder.select(
           "id",
           "name",
-          "lastname",
           "email",
-          "admin",
           "active",
           "created_at"
         );

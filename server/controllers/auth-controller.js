@@ -19,32 +19,28 @@ const create = async (req, res, next) => {
       active_hash: crypto.randomBytes(60).toString("hex"),
     };
 
-    const query = await Account.query()
-      .insertAndFetch(newAcc)
-      .returning('*')
+    const query = await Account.query().insertAndFetch(newAcc).returning("*");
 
-    delete query.password
-    delete query.active_hash
+    delete query.password;
+    delete query.active_hash;
     res.json(query);
   } catch (err) {
-    return next(err)
+    return next(err);
   }
 };
 
 const login = async (req, res, next) => {
   passport.authenticate("local", (err, user) => {
-    if (err) 
-      next(err)
+    if (err) next(err);
     if (!user)
       next({
         status: 400,
         message: "Username or Password is incorrect.",
-        endpoint: "/auth/login"
-      })
+        endpoint: "/auth/login",
+      });
     if (user) {
       req.logIn(user, function (err) {
-        if (err)
-          next(err)
+        if (err) next(err);
         req.session.user = req.user;
         res.json({ status: "Success", user: user });
       });
@@ -72,9 +68,9 @@ const activate = async (req, res, next) => {
     const query = await Account.query()
       .findOne("active_hash", req.params.key)
       .patch({ active: true, active_hash: null })
-      .returning('*')
-      .modify('basicInfo')
-    console.log(query)
+      .returning("*")
+      .modify("basicInfo");
+    console.log(query);
     res.json(query);
   } catch (err) {
     next(err);

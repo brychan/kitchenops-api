@@ -75,16 +75,13 @@ app.use(passport.session());
 
 // Routes
 const authRoutes = require("./server/routes/auth-routes");
+const apiRoutes = require("./server/routes/main-routes");
 
 app.use("/auth", authRoutes);
+app.use("/api", apiRoutes);
 
-function logErrors(err, req, res, next) {
-  console.error("logErrors MW", err)
-  next(err)
-}
-const { errorHandler } = require("./server/utilities/_errorHandler")
-app.use(logErrors)
-app.use(errorHandler)
+const { errorHandler } = require("./server/utilities/_errorHandler");
+app.use(errorHandler);
 
 // App Server Connection
 app.listen(process.env.PORT || 9001, () => {

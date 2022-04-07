@@ -7,9 +7,11 @@ exports.seed = async function (knex) {
   await knex("account").del();
   await knex("account").insert([
     {
-      email: "test2@gmail.com",
-      name: "test11",
-      password: "123123",
+      email: "test11",
+      company_name: "KitchenOps",
+      password: "$2b$10$SjcpRuVtBiNuc/duJIHHnOZpoEPq5M6DbUD8/jyrTNjtkz3BeAfSq",
+      active: true,
+      active_hash: null,
     },
   ]);
 };

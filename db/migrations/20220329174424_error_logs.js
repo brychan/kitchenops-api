@@ -2,7 +2,7 @@
  * @param { import("knex").Knex } knex
  * @returns { Promise<void> }
  */
- exports.up = (knex, Promise) => {
+exports.up = (knex, Promise) => {
   return knex.schema.createTable("error_logs", (table) => {
     table.increments();
     table.integer("accountId");
@@ -18,6 +18,6 @@
  * @returns { Promise<void> }
  */
 
- exports.down = (knex, Promise) => {
+exports.down = (knex, Promise) => {
   return knex.schema.dropTable("error_logs");
 };

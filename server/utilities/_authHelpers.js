@@ -12,13 +12,12 @@ function validateCreateForm(req, res, next) {
   } else if (email.length < 6) {
     message = "Email must be longer than 6 characters";
   }
-  if (message) 
+  if (message)
     return next({
       status: 400,
       message,
-    })
-  else
-    return next();
+    });
+  else return next();
 }
 
 function comparePass(userPassword, databasePassword) {
@@ -29,13 +28,13 @@ function loginRequired(req, res, next) {
   if (!req.user)
     return next({
       status: 403,
-      message: "Unauthorized access."
-    })
+      message: "Unauthorized access.",
+    });
   if (!req.user.active)
     return next({
       status: 403,
-      message: "Account is not active."
-    })
+      message: "Account is not active.",
+    });
   return next();
 }
 
@@ -44,8 +43,8 @@ function adminRequired(req, res, next) {
   if (!req.user.admin)
     return next({
       status: 403,
-      message: "Unauthorized access."
-    })
+      message: "Unauthorized access.",
+    });
   return next();
 }
 

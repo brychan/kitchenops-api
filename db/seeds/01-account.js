@@ -8,7 +8,7 @@ exports.seed = async function (knex) {
   await knex("account").insert([
     {
       email: "test11",
-      company_name: "KitchenOps",
+      company_id: 1,
       password: "$2b$10$SjcpRuVtBiNuc/duJIHHnOZpoEPq5M6DbUD8/jyrTNjtkz3BeAfSq",
       active: true,
       active_hash: null,

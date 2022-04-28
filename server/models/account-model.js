@@ -8,11 +8,11 @@ class Account extends Model {
   static get jsonSchema() {
     return {
       type: "object",
-      required: ["company_name", "email", "password"],
+      required: ["company_id", "email", "password"],
 
       properties: {
         id: { type: "integer" },
-        company_name: { type: "string", minLength: 1, maxLength: 255 },
+        comapny_id: { type: "integer" },
         password: { type: "string", minLength: 6, maxLength: 255 },
         email: { type: "string", minLength: 6, maxLength: 255 },
         admin: { type: "boolean" },
@@ -25,7 +25,7 @@ class Account extends Model {
   static get modifiers() {
     return {
       basicInfo(builder) {
-        builder.select("id", "company_name", "email", "active", "created_at");
+        builder.select("id", "company_id", "email", "active", "created_at");
       },
     };
   }

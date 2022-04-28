@@ -8,12 +8,16 @@ class Ingredient extends Model {
   static get jsonSchema() {
     return {
       type: "object",
-      required: ["name", "account_id"],
+      required: ["name", "company_id"],
 
       properties: {
         id: { type: "integer" },
         name: { type: "string", minLength: 1, maxLength: 255 },
-        account_id: { type: "integer" },
+        company_id: { type: "integer" },
+        code_provider: { type: ["string", "null"] },
+        code_internal: { type: ["string", "null"] },
+        brand: { type: ["string", "null"] },
+        description: { type: ["string", "null"] },
         active: { type: "boolean" },
         deleted: { type: "boolean" },
       },

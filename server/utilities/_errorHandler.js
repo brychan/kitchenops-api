@@ -16,7 +16,6 @@ async function saveToDB(err) {
 }
 
 function errorHandler(err, req, res, next) {
-  console.log(err instanceof Error);
   if (!(err instanceof Error)) {
     res.status(err.status).send({
       message: err.message,

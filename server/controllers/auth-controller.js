@@ -70,7 +70,6 @@ const activate = async (req, res, next) => {
       .patch({ active: true, active_hash: null })
       .returning("*")
       .modify("basicInfo");
-    console.log(query);
     res.json(query);
   } catch (err) {
     next(err);

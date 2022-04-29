@@ -1,5 +1,6 @@
 const { Model } = require("objection");
 
+
 class Ingredient extends Model {
   static get tableName() {
     return "ingredient";
@@ -21,6 +22,24 @@ class Ingredient extends Model {
         active: { type: "boolean" },
         deleted: { type: "boolean" },
       },
+    };
+  }
+
+  static get relationMappings() {
+    const CategoryIngredient = require('./category-ingredient-model')
+    return {
+      categories: {
+        relation: Model.ManyToManyRelation,
+        modelClass: CategoryIngredient,
+        join: {
+          from: 'ingredient.id',
+          through: {
+            from: 'ingredient_category_ingredient.ingredient_id',
+            to: 'ingredient_category_ingredient.category_ingredient_id'
+          },
+          to: 'category_ingredient.id'
+        }
+      }
     };
   }
 }

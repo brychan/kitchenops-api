@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const ingredientsRoutes = require("./ingredients-routes");
+const ingredientsRoutes = require("./ingredient-routes");
 
 router.use("/ingredients", ingredientsRoutes);
 

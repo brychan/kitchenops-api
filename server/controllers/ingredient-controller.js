@@ -33,16 +33,15 @@ const create = async (req, res, next) => {
     const categories = req.body.categories.map((category) => {
         return {
             id: category.id,
-            company_id: category.company_id,
+            company_id: req.user.company_id,
         }
     })
-
     try {
         const query = await Ingredient.query().upsertGraph(
             {
                 ...req.body,
                 company_id: req.user.company_id,
-                categories
+                categories,
             },
             {
                 relate: true,
@@ -50,7 +49,6 @@ const create = async (req, res, next) => {
             }
         )
         res.json(query)
-        
     } catch (err) {
         return next(err)
     }

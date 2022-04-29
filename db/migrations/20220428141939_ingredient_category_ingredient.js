@@ -13,5 +13,5 @@
 };
 
 exports.down = (knex, Promise) => {
-  return knex.schema.dropTable("category_ingredient_category");
+  return knex.schema.dropTable("ingredient_category_ingredient");
 };

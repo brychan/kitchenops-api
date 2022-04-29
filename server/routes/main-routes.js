@@ -1,9 +1,11 @@
-const express = require("express");
-const router = express.Router();
+const express = require('express')
+const router = express.Router()
 
-const ingredientsRoutes = require("./ingredient-routes");
+const ingredientsRoutes = require('./ingredient-routes')
+const providersRoutes = require('../routes/provider-routes')
 
-router.use("/ingredients", ingredientsRoutes);
+router.use('/ingredients', ingredientsRoutes)
+router.use('/providers', providersRoutes)
 
 /*
 react-admin:
@@ -18,4 +20,4 @@ delete 	DELETE http://my.api.url/posts/123
 deleteMany 	Multiple calls to DELETE http://my.api.url/posts/123
 */
 
-module.exports = router;
+module.exports = router

@@ -13,7 +13,10 @@ router.post('/', _authHelpers.loginRequired, (req, res, next) => {
     ingredientController.create(req, res, next)
 })
 router.get('/categories', _authHelpers.loginRequired, (req, res, next) => {
-  categoryIngredientController.getList(req, res, next);
+    categoryIngredientController.getList(req, res, next)
+})
+router.post('/categories', _authHelpers.loginRequired, (req, res, next) => {
+    categoryIngredientController.create(req, res, next)
 })
 
 router.get('/:id', _authHelpers.loginRequired, (req, res, next) => {

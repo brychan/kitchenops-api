@@ -2,7 +2,6 @@ const Provider = require('../models/provider-model');
 
 const getList = async (req, res, next) => {
   try {
-    console.log(req.user.company_id)
     const query = await Provider.query()
       .where({
         company_id: req.user.company_id,

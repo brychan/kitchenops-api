@@ -1,3 +1,3 @@
-# Simple Server Boilerplate
+# KitchenOps API Server
 
-NodeJs, Express, Knex, ObjectionJS, passport-local, postgres.
+in development

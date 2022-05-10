@@ -1,4 +1,3 @@
-const req = require('express/lib/request')
 const Ingredient = require('../models/ingredient-model')
 
 const getList = async (req, res, next) => {
@@ -14,6 +13,7 @@ const getList = async (req, res, next) => {
                 company_id: req.user.company_id,
                 deleted: false,
             })
+            .withGraphFetched('[categories, provider]')
             .range(params.range[0], params.range[1])
             .orderBy(params.sort[0], params.sort[1])
         if (params.filter.active) preQuery.where('active', true)
@@ -76,7 +76,7 @@ const getOne = async (req, res, next) => {
     const { id } = req.params
     try {
         const query = await Ingredient.query().where({
-            account_id: req.user.id,
+            company_id: req.user.company_id,
             id,
         })
         res.json(query[0])
@@ -90,7 +90,7 @@ const deleteOne = async (req, res, next) => {
     try {
         const query = await Ingredient.query()
             .where({
-                account_id: req.user.id,
+                company_id: req.user.company_id,
                 id,
             })
             .patch({ deleted: true })

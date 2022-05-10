@@ -13,7 +13,7 @@ class Provider extends Model {
       properties: {
         id: { type: "integer" },
         comapny_id: { type: "integer" },
-        name: { type: "string", minLength: 6, maxLength: 255 },
+        name: { type: "string", minLength: 1, maxLength: 255 },
         description: { type: ["string", "null"]},
       },
     };

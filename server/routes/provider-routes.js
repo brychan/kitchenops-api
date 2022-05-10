@@ -8,4 +8,8 @@ router.get('/', _authHelpers.loginRequired, (req, res, next) => {
   providerController.getList(req, res, next)
 })
 
+router.post('/', _authHelpers.loginRequired, (req, res, next) => {
+  providerController.create(req, res, next)
+})
+
 module.exports = router

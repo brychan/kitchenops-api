@@ -5,6 +5,7 @@ const _authHelpers = require('../utilities/_authHelpers')
 const ingredientController = require('../controllers/ingredient-controller')
 const categoryIngredientController = require('../controllers/category-ingredient-controller')
 const packagingIngredientController = require('../controllers/packaging-ingredient-controller')
+const allergensIngredientController = require('../controllers/allergens-ingredient-controller')
 
 router.get('/', _authHelpers.loginRequired, (req, res, next) => {
     ingredientController.getList(req, res, next)
@@ -13,18 +14,30 @@ router.get('/', _authHelpers.loginRequired, (req, res, next) => {
 router.post('/', _authHelpers.loginRequired, (req, res, next) => {
     ingredientController.create(req, res, next)
 })
+
 router.get('/categories', _authHelpers.loginRequired, (req, res, next) => {
     categoryIngredientController.getList(req, res, next)
 })
+
 router.post('/categories', _authHelpers.loginRequired, (req, res, next) => {
     categoryIngredientController.create(req, res, next)
+})
+
+router.get('/allergens/:id', _authHelpers.loginRequired, (req, res, next) => {
+    allergensIngredientController.getOne(req, res, next)
+})
+
+router.patch('/allergens/:id', _authHelpers.loginRequired, (req, res, next) => {
+    allergensIngredientController.update(req, res, next)
 })
 router.get('/packaging/:id', _authHelpers.loginRequired, (req, res, next) => {
     packagingIngredientController.getOne(req, res, next)
 })
+
 router.get('/packaging', _authHelpers.loginRequired, (req, res, next) => {
     packagingIngredientController.getList(req, res, next)
 })
+
 router.post('/packaging', _authHelpers.loginRequired, (req, res, next) => {
     packagingIngredientController.create(req, res, next)
 })

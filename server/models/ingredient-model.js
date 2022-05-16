@@ -28,6 +28,7 @@ class Ingredient extends Model {
     static get relationMappings() {
         const CategoryIngredient = require('./category-ingredient-model')
         const Provider = require('./provider-model')
+        const AllergensIngredient = require('./allergens-ingredient-model')
         return {
             categories: {
                 relation: Model.ManyToManyRelation,
@@ -48,6 +49,14 @@ class Ingredient extends Model {
                 from: 'ingredient.provider_id',
                 to: 'provider.id'
               }
+            },
+            allergens: {
+                relation: Model.HasOneRelation,
+                modelClass: AllergensIngredient,
+                join: {
+                    from: 'ingredient.id',
+                    to: 'allergens.ingredient_id'
+                }
             }
         }
     }

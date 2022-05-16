@@ -41,6 +41,9 @@ const create = async (req, res, next) => {
             {
                 ...req.body,
                 company_id: req.user.company_id,
+                allergens: {
+                    company_id: req.user.company_id
+                },
                 categories,
             },
             {

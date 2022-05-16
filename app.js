@@ -20,7 +20,7 @@ Model.knex(knex);
 /* START CORS MIDDLEWARE - Allow CORS for development */
 const whitelist = ["http://localhost:3000", "http://localhost:3000/", "*"];
 const corsOptions = {
-  methods: ["GET", "POST", "PUT", "DELETE"],
+  methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
   origin: function (origin, callback) {
     callback(null, true);
     /*if (whitelist.indexOf(origin) !== -1 || !origin) {

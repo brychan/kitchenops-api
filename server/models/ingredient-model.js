@@ -29,6 +29,7 @@ class Ingredient extends Model {
         const CategoryIngredient = require('./category-ingredient-model')
         const Provider = require('./provider-model')
         const AllergensIngredient = require('./allergens-ingredient-model')
+        const NutritionIngredient = require('./nutrition-ingredient-model')
         return {
             categories: {
                 relation: Model.ManyToManyRelation,
@@ -56,6 +57,14 @@ class Ingredient extends Model {
                 join: {
                     from: 'ingredient.id',
                     to: 'allergens.ingredient_id'
+                }
+            },
+            nutrition: {
+                relation: Model.HasOneRelation,
+                modelClass: NutritionIngredient,
+                join: {
+                    from: 'ingredient.id',
+                    to: 'nutrition_ingredient.ingredient_id'
                 }
             }
         }

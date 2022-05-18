@@ -18,6 +18,7 @@ const update = async (req, res, next) => {
         const query = await AllergensIngredient.query()
             .patch(req.body)
             .findById(id)
+            .where({ company_id: req.user.company_id })
         res.json(query)
     } catch (err) {
         return next(err)
@@ -25,5 +26,5 @@ const update = async (req, res, next) => {
 }
 module.exports = {
     getOne,
-    update
+    update,
 }

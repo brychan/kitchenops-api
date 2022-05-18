@@ -44,6 +44,9 @@ const create = async (req, res, next) => {
                 allergens: {
                     company_id: req.user.company_id
                 },
+                nutrition: {
+                    company_id: req.user.company_id
+                },
                 categories,
             },
             {
